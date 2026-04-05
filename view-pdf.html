@@ -106,7 +106,7 @@
         missing.style.display = 'block';
         return;
       }
-      var base = 'static/pdf/' + folder + '/' + file.split('/').map(encodeURIComponent).join('/');
+     var base = folder + '/' + file.split('/').map(encodeURIComponent).join('/');
       frame.src = base;
       dl.href = base;
       dl.setAttribute('download', '');
