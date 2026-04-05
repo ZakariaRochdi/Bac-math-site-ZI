@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Examen — Bac Maths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .interactive-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #007bff;
+      display: inline-block;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .interactive-title span {
+      border-bottom: 3px solid #007bff;
+      padding-bottom: 4px;
+    }
+    .interactive-title:hover {
+      color: #0056b3;
+      transform: scale(1.08);
+    }
+    .interactive-message {
+      color: #0056b3;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <header>
+    <h1><a href="index.html" style="text-decoration:none; color:inherit;">Bac Maths</a></h1>
+    <nav class="navbar-top">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Summary</a>
+      <a href="exercices.html">Exercises</a>
+      <a href="livre.html">Book</a>
+      <a href="examens.html">Exams</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <div class="fade-in" style="max-width: 1000px; margin: 30px auto; text-align: center;">
+      <h2 class="interactive-title" id="ev2-title">📝 <span>Exam Preview</span></h2>
+      <p class="interactive-message" style="color: rgb(0, 0, 255); margin-bottom: 20px;" id="ev2-desc"></p>
+      <div id="exam-pdf-box" style="margin: 20px auto; max-width: 95%; border: 1px solid #ccc; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px;">
+        <iframe id="exam-frame" title="Exam PDF" style="width: 100%; height: 85vh; border: none;" allowfullscreen></iframe>
+        <embed id="exam-embed" type="application/pdf" style="display: none; width: 100%; height: 85vh;" />
+      </div>
+      <p id="exam-file-hint" class="interactive-message" style="display: none; max-width: 640px; margin: 16px auto;">
+        Ouvrez le site avec un serveur local (pas <code>file://</code>) ou
+        <a class="button" id="exam-open-tab" href="#" target="_blank" rel="noopener" style="display: inline-block; margin-top: 8px;">ouvrir le PDF</a>
+      </p>
+      <div style="margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+        <a class="button" id="exam-dl" href="#">⬇️ Save PDF</a>
+        <button type="button" class="button" onclick="openFullScreen()">🖥️ Full Screen</button>
+      </div>
+      <div style="margin-top: 30px;">
+        <a class="button" id="back-choix" href="#">⬅️ Back to Normal / Retake Option</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2026 <strong>Bac Maths</strong>. All rights reserved.</p>
+      <p>
+        Contact :
+        <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a> |
+        <a href="https://instagram.com/zikoorh" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a> |
+        <a href="https://facebook.com/rh.Ziko" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
+      </p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer" class="whatsapp-chat-button">
+    <i class="fab fa-whatsapp"></i> Need help ? We're here !
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="js/particles-init.js"></script>
+  <script>
+    (function () {
+      var p = new URLSearchParams(location.search);
+      var year = p.get('year') || 'bac2024';
+      var type = p.get('type') || 'normal';
+      if (type !== 'normal' && type !== 'rattrapage') type = 'normal';
+      var label = type === 'rattrapage' ? 'Retake' : 'Normal';
+      var url = 'static/pdf/examens/' + type + '/' + year + '.pdf';
+      document.getElementById('ev2-title').innerHTML =
+        '📝 <span>Exam Preview — ' + label + '</span>';
+      document.getElementById('ev2-desc').innerHTML =
+        '✨ You can view the <strong>' +
+        label +
+        '</strong> topic directly below and download it :';
+      var frame = document.getElementById('exam-frame');
+      var embed = document.getElementById('exam-embed');
+      frame.src = url;
+      document.getElementById('exam-open-tab').href = url;
+      if (location.protocol === 'file:') {
+        embed.src = url;
+        embed.style.display = 'block';
+        frame.style.display = 'none';
+        document.getElementById('exam-file-hint').style.display = 'block';
+      }
+      var dl = document.getElementById('exam-dl');
+      dl.href = url;
+      document.getElementById('back-choix').href =
+        'examens-choix.html?year=' + encodeURIComponent(year);
+    })();
+    function openFullScreen() {
+      var frame = document.getElementById('exam-frame');
+      var embed = document.getElementById('exam-embed');
+      var el = frame.style.display === 'none' ? embed : frame;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+  </script>
+</body>
+</html>

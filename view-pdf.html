@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Visualiser le PDF — Bac Maths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .interactive-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #007bff;
+      display: inline-block;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .interactive-title span {
+      border-bottom: 3px solid #007bff;
+      padding-bottom: 4px;
+    }
+    .interactive-title:hover {
+      color: #0056b3;
+      transform: scale(1.08);
+    }
+    .interactive-message {
+      color: #0056b3;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <header>
+    <h1><a href="index.html" style="text-decoration:none; color:inherit;">Bac Maths</a></h1>
+    <nav class="navbar-top">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Summary</a>
+      <a href="exercices.html">Exercises</a>
+      <a href="livre.html">Book</a>
+      <a href="examens.html">Exams</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <div class="fade-in">
+      <h2 class="interactive-title">📄 <span>Document preview</span></h2>
+      <p class="interactive-message" style="color: rgb(14, 27, 211);">
+        ✨ View the PDF document below, or download it to access offline.
+      </p>
+      <div id="pdf-container" style="margin: 20px auto; max-width: 95%; border: 1px solid #ccc; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px;">
+        <iframe id="pdf-frame" title="PDF" style="width: 100%; height: 90vh; border: none;" allowfullscreen></iframe>
+        <embed id="pdf-embed" type="application/pdf" style="display: none; width: 100%; height: 90vh;" />
+      </div>
+      <p id="pdf-fallback-hint" class="interactive-message" style="display: none; max-width: 640px; margin: 16px auto;">
+        Avec <code>file://</code>, les PDF dans la page sont souvent bloqués. Utilisez <strong>Live Server</strong> ou
+        <a class="button" id="pdf-open-tab" href="#" target="_blank" rel="noopener" style="display: inline-block; margin-top: 8px;">ouvrir le PDF dans un nouvel onglet</a>
+      </p>
+      <p id="pdf-missing" class="interactive-message" style="display:none;">Aucun fichier indiqué. Utilisez un lien depuis Summary ou Exercises.</p>
+      <div id="pdf-actions" style="margin-top: 30px;">
+        <a class="button" href="javascript:history.back()">⬅️ Back</a>
+        <a class="button" id="pdf-download" href="#">⬇️ Save PDF</a>
+        <button type="button" class="button" onclick="openFullScreen()">🖥️ Full screen</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2026 <strong>Bac Maths</strong>. All rights reserved.</p>
+      <p>
+        Contact :
+        <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a> |
+        <a href="https://instagram.com/zikoorh" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a> |
+        <a href="https://facebook.com/rh.Ziko" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
+      </p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer" class="whatsapp-chat-button">
+    <i class="fab fa-whatsapp"></i> Need help ? We're here !
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="js/particles-init.js"></script>
+  <script>
+    (function () {
+      var p = new URLSearchParams(location.search);
+      var folder = p.get('folder') || 'resumes';
+      var file = p.get('file');
+      var frame = document.getElementById('pdf-frame');
+      var embed = document.getElementById('pdf-embed');
+      var dl = document.getElementById('pdf-download');
+      var missing = document.getElementById('pdf-missing');
+      var actions = document.getElementById('pdf-actions');
+      var container = document.getElementById('pdf-container');
+      var hint = document.getElementById('pdf-fallback-hint');
+      var openTab = document.getElementById('pdf-open-tab');
+      if (!file) {
+        container.style.display = 'none';
+        actions.style.display = 'none';
+        missing.style.display = 'block';
+        return;
+      }
+      var base = 'static/pdf/' + folder + '/' + file.split('/').map(encodeURIComponent).join('/');
+      frame.src = base;
+      dl.href = base;
+      dl.setAttribute('download', '');
+      openTab.href = base;
+      if (location.protocol === 'file:') {
+        embed.src = base;
+        embed.style.display = 'block';
+        frame.style.display = 'none';
+        hint.style.display = 'block';
+      }
+    })();
+    function openFullScreen() {
+      var frame = document.getElementById('pdf-frame');
+      var embed = document.getElementById('pdf-embed');
+      var el = frame.style.display === 'none' ? embed : frame;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+  </script>
+</body>
+</html>

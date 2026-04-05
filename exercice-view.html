@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Exercice — Bac Maths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .interactive-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #007bff;
+      display: inline-block;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .interactive-title span {
+      border-bottom: 3px solid #007bff;
+      padding-bottom: 4px;
+    }
+    .interactive-title:hover {
+      color: #0056b3;
+      transform: scale(1.08);
+    }
+    .interactive-message {
+      color: #0056b3;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <header>
+    <h1><a href="index.html" style="text-decoration:none; color:inherit;">Bac Maths</a></h1>
+    <nav class="navbar-top">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Summary</a>
+      <a href="exercices.html">Exercises</a>
+      <a href="livre.html">Book</a>
+      <a href="examens.html">Exams</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <div class="fade-in" style="max-width: 1000px; margin: 30px auto; text-align: center;">
+      <h2 class="interactive-title" id="ev-title">📄 <span>Exercise</span></h2>
+      <p class="interactive-message" style="color: rgb(0, 0, 255);" id="ev-desc"></p>
+      <div id="pdf-viewer-wrap" style="margin: 20px auto; max-width: 95%; border: 1px solid #ccc; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 8px; min-height: 85vh;">
+        <iframe id="pdf-frame" title="PDF" style="width: 100%; height: 85vh; border: none;" allowfullscreen></iframe>
+        <embed id="pdf-embed" type="application/pdf" style="display: none; width: 100%; height: 85vh;" />
+      </div>
+      <p id="pdf-fallback-hint" class="interactive-message" style="display: none; max-width: 640px; margin: 16px auto;">
+        Avec <code>file://</code>, utilisez <strong>Live Server</strong> ou
+        <a class="button" id="pdf-open-tab" href="#" target="_blank" rel="noopener" style="display: inline-block; margin-top: 8px;">ouvrir le PDF</a>
+      </p>
+      <div style="margin-top: 20px;">
+        <a class="button" id="back-series" href="exercices-list.html">⬅️ Back to series</a>
+        <a class="button" id="pdf-dl" href="#">⬇️ Save PDF</a>
+        <button type="button" class="button" onclick="openFullScreen()">🖥️ Full screen</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2026 <strong>Bac Maths</strong>. All rights reserved.</p>
+      <p>
+        Contact :
+        <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a> |
+        <a href="https://instagram.com/zikoorh" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a> |
+        <a href="https://facebook.com/rh.Ziko" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
+      </p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer" class="whatsapp-chat-button">
+    <i class="fab fa-whatsapp"></i> Need help ? We're here !
+  </a>
+
+  <script src="js/cours-data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="js/particles-init.js"></script>
+  <script>
+    (function () {
+      var p = new URLSearchParams(location.search);
+      var coursId = parseInt(p.get('coursId'), 10);
+      var n = parseInt(p.get('n'), 10);
+      var cours = window.BACMATH_COURS.find(function (c) { return c.id === coursId; });
+      if (!cours || !n || n < 1) {
+        document.getElementById('ev-desc').textContent = 'Lien incomplet.';
+        return;
+      }
+      var url = 'static/pdf/exercices/' + coursId + '/serie' + n + '.pdf';
+      var labelSerie = 'Série ' + n;
+      document.getElementById('ev-title').innerHTML =
+        '📄 <span>' + cours.nom + ' — ' + labelSerie + '</span>';
+      document.getElementById('ev-desc').innerHTML =
+        '✨ Vous pouvez visualiser le sujet <strong>' +
+        cours.nom +
+        ' – ' +
+        labelSerie +
+        '</strong> directement ci-dessous et le télécharger :';
+      var frame = document.getElementById('pdf-frame');
+      var embed = document.getElementById('pdf-embed');
+      frame.src = url;
+      document.getElementById('pdf-open-tab').href = url;
+      if (location.protocol === 'file:') {
+        embed.src = url;
+        embed.style.display = 'block';
+        frame.style.display = 'none';
+        document.getElementById('pdf-fallback-hint').style.display = 'block';
+      }
+      var dl = document.getElementById('pdf-dl');
+      dl.href = url;
+      document.getElementById('back-series').href = 'exercices-list.html?id=' + coursId;
+    })();
+    function openFullScreen() {
+      var frame = document.getElementById('pdf-frame');
+      var embed = document.getElementById('pdf-embed');
+      var el = frame.style.display === 'none' ? embed : frame;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr" class="contact-root">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact — Bac Maths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    body.page-contact, html.contact-root {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      background-size: 100% 100%;
+      animation: none;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body.page-contact::before, body.page-contact::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: floatBlur 10s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    body.page-contact::before { width: 500px; height: 500px; background: rgba(0,212,255,0.2); top: -150px; left: -150px;}
+    body.page-contact::after { width: 400px; height: 400px; background: rgba(255,255,255,0.1); bottom: -100px; right: -100px;}
+    @keyframes floatBlur {0% {transform: translateY(0px) translateX(0px);}50% {transform: translateY(15px) translateX(15px);}100% {transform: translateY(0px) translateX(0px);}}
+
+    .contact-section { display: flex; justify-content: center; align-items: center; padding: 40px 15px; min-height: calc(100vh - 120px); z-index: 1; position: relative;}
+
+    .contact-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(20px);
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .contact-card:hover { transform: translateY(-5px); box-shadow: 0 25px 60px rgba(0,0,0,0.35);}
+
+    .contact-card h2 {
+      margin-bottom: 20px;
+      font-size: 2.2em;
+      color: #fff;
+      text-shadow: 0 0 10px #00d4ff, 0 0 20px #00a8ff;
+      position: relative;
+      display: inline-block;
+      cursor: default;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-style: preserve-3d;
+      perspective: 500px;
+    }
+
+    .contact-card h2::before,
+    .contact-card h2::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+      left: 0;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+
+    .contact-card h2::before { top: -10px; transform: translateY(-10px); }
+    .contact-card h2::after { bottom: -10px; transform: translateY(10px); }
+
+    .contact-card h2:hover {
+      transform: translateY(-3px) scale(1.03);
+      text-shadow: 0 0 15px #00d4ff, 0 0 30px #00a8ff;
+    }
+
+    .contact-card h2:hover::before,
+    .contact-card h2:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact-card h2::first-letter {
+      display: inline-block;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .contact-card h2:hover::first-letter {
+      transform: translateY(-5px) rotate(-10deg);
+      text-shadow: 0 0 20px #fff, 0 0 30px #00d4ff;
+    }
+    .contact-card .subtitle { margin-bottom: 20px; font-size: 14px; color: #f0f0f0;}
+
+    #dynamicText {
+      cursor: pointer;
+      color: #00d4ff;
+      text-shadow: 0 0 8px #00d4ff, 0 0 16px #00ffff;
+      font-weight: bold;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+      animation: neonPulse 1.5s infinite alternate;
+    }
+    @keyframes neonPulse {
+      0% { text-shadow:0 0 5px #00d4ff,0 0 10px #00d4ff,0 0 15px #00ffff,0 0 20px #00ffff; transform:scale(1); }
+      50% { text-shadow:0 0 10px #00d4ff,0 0 20px #00d4ff,0 0 25px #00ffff,0 0 30px #00ffff; transform:scale(1.05); }
+      100% { text-shadow:0 0 5px #00d4ff,0 0 10px #00d4ff,0 0 15px #00ffff,0 0 20px #00ffff; transform:scale(1); }
+    }
+
+    .contact-form .form-group { position: relative; margin-bottom: 15px; }
+    .contact-form input {
+      width: 80%;
+      max-width: 300px;
+      padding: 10px 35px 10px 35px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.4);
+      outline: none;
+      font-size: 13px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      box-shadow: 0 0 4px #00d4ff33;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+      display: block;
+      margin: 8px auto;
+    }
+    .contact-form input:focus {
+      border-color: #00d4ff;
+      box-shadow: 0 0 10px #00d4ff, 0 0 20px #00ffff55;
+      transform: scale(1.02);
+    }
+    .contact-form label {
+      position: absolute; left: 35px; top: 10px;
+      color: rgba(255,255,255,0.7); font-size: 12px;
+      pointer-events: none; transition: 0.3s ease all;
+    }
+    .contact-form input:focus + label,
+    .contact-form input:not(:placeholder-shown) + label {
+      top: -8px; left: 30px; font-size: 11px;
+      color: #00d4ff; background: rgba(30,60,114,0.35); padding: 0 4px;
+    }
+
+    .btn-submit {
+      width: 80%;
+      max-width: 300px;
+      padding: 12px;
+      background: linear-gradient(135deg, #00d4ff, #00ffff);
+      border: none; border-radius: 12px;
+      color: #fff; font-weight: bold; font-size: 14px; cursor: pointer;
+      transition: 0.3s ease all;
+      box-shadow: 0 0 8px #00d4ff, 0 0 16px #00ffff;
+      animation: pulseButton 2s infinite alternate;
+      display: block;
+      margin: 15px auto 0 auto;
+    }
+    .btn-submit:hover {
+      background: linear-gradient(135deg, #009ec3, #00ffff);
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #00ffff, 0 0 30px #00d4ff;
+    }
+    @keyframes pulseButton {0%{box-shadow:0 0 8px #00d4ff,0 0 16px #00ffff;}50%{box-shadow:0 0 15px #00d4ff,0 0 30px #00ffff;}100%{box-shadow:0 0 8px #00d4ff,0 0 16px #00ffff;}}
+
+    .btn-offre {
+      width: 80%;
+      max-width: 300px;
+      padding: 12px;
+      margin: 0 auto 20px auto;
+      background: linear-gradient(135deg, #ff00cc, #3333ff);
+      border: none; border-radius: 12px;
+      color: #fff; font-weight: bold; font-size: 15px;
+      cursor: pointer; transition: 0.3s ease all;
+      box-shadow: 0 0 10px #ff00cc, 0 0 20px #3333ff;
+      animation: pulseOffre 2s infinite alternate;
+      display: block; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .btn-offre:hover { background: linear-gradient(135deg, #ff3399, #6666ff); transform: scale(1.05) rotate(-1deg); box-shadow:0 0 20px #ff00cc,0 0 40px #3333ff; }
+    @keyframes pulseOffre {0%{box-shadow:0 0 8px #ff00cc,0 0 16px #3333ff;}50%{box-shadow:0 0 16px #ff33cc,0 0 32px #6666ff;}100%{box-shadow:0 0 8px #ff00cc,0 0 16px #3333ff;}}
+
+    #success-alert {
+      display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #00d4ff, #00ffff); color:#fff; padding:15px 25px;
+      border-radius:20px; font-weight:bold; text-shadow:0 0 8px #00ffff,0 0 16px #00d4ff;
+      box-shadow:0 0 15px #00d4ff,0 0 30px #00ffff,0 0 45px #00d4ff inset; z-index:10;
+      animation: popupIn 0.5s ease forwards, pulseAlert 1.5s infinite alternate;
+    }
+    @keyframes popupIn {from {opacity:0; transform:translateX(-50%) translateY(-20px);} to {opacity:1; transform:translateX(-50%) translateY(0);} }
+    @keyframes pulseAlert {0%{box-shadow:0 0 15px #00d4ff,0 0 30px #00ffff,0 0 45px #00d4ff inset;}50%{box-shadow:0 0 22px #00d4ff,0 0 45px #00ffff,0 0 70px #00d4ff inset;}100%{box-shadow:0 0 15px #00d4ff,0 0 30px #00ffff,0 0 45px #00d4ff inset;}}
+
+    @media (max-width: 500px) { .contact-card { padding:25px 15px; } .contact-card h2 { font-size:24px; } .contact-form input, .btn-submit, .btn-offre { width:90%; max-width:250px; } }
+
+    body.page-contact #particles-js { z-index: 0; }
+    body.page-contact header { z-index: 1000; }
+  </style>
+</head>
+<body class="page-contact">
+  <div id="particles-js"></div>
+  <header>
+    <h1><a href="index.html" style="text-decoration:none; color:inherit;">Bac Maths</a></h1>
+    <nav class="navbar-top">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Summary</a>
+      <a href="exercices.html">Exercises</a>
+      <a href="livre.html">Book</a>
+      <a href="examens.html">Exams</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="contact-section">
+    <div class="contact-card" style="position:relative;">
+      <button type="button" class="btn-offre" id="offreBtn">🎁 See Our Offers</button>
+      <h2>📬 Contact Us</h2>
+      <p id="dynamicText">Fill out the form! We will respond quickly.</p>
+
+      <form id="contactForm" class="contact-form" onsubmit="return submitForm(this);">
+        <div class="form-group" id="nom">
+          <input type="text" name="nom" id="input-nom" placeholder="Name" required>
+          <label for="input-nom">Name</label>
+        </div>
+        <div class="form-group" id="prenom">
+          <input type="text" name="prenom" id="input-prenom" placeholder="First Name" required>
+          <label for="input-prenom">First Name</label>
+        </div>
+        <div class="form-group" id="email">
+          <input type="email" name="email" id="input-email" placeholder="Email" required>
+          <label for="input-email">Email</label>
+        </div>
+        <div class="form-group" id="telephone">
+          <input type="tel" name="telephone" id="input-tel" placeholder="Phone" required pattern="[0-9]{10,15}">
+          <label for="input-tel">Phone</label>
+        </div>
+        <div class="form-group" id="ville">
+          <input type="text" name="ville" id="input-ville" placeholder="City" required>
+          <label for="input-ville">City</label>
+        </div>
+        <button type="submit" class="btn-submit">Send</button>
+      </form>
+
+      <div id="success-alert">✅ Message enregistré (version locale sans serveur).</div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2026 <strong>Bac Maths</strong>. All rights reserved.</p>
+      <p>
+        Contact :
+        <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a> |
+        <a href="https://instagram.com/zikoorh" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a> |
+        <a href="https://facebook.com/rh.Ziko" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
+      </p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer" class="whatsapp-chat-button">
+    <i class="fab fa-whatsapp"></i> Need help ? We're here !
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="js/particles-init.js"></script>
+  <script>
+    var dynamicText = document.getElementById('dynamicText');
+    dynamicText.addEventListener('mouseenter', function () {
+      dynamicText.style.transform = 'scale(1.1)';
+      dynamicText.style.textShadow = '0 0 20px #00d4ff, 0 0 40px #00ffff';
+    });
+    dynamicText.addEventListener('mouseleave', function () {
+      dynamicText.style.transform = 'scale(1)';
+      dynamicText.style.textShadow = '0 0 8px #00d4ff, 0 0 16px #00ffff';
+    });
+    dynamicText.addEventListener('click', function () {
+      var original = dynamicText.innerText;
+      dynamicText.innerText = 'Merci de nous contacter ! ✨';
+      setTimeout(function () { dynamicText.innerText = original; }, 2000);
+    });
+
+    function showMessage(message, isError) {
+      var alertBox = document.getElementById('success-alert');
+      alertBox.textContent = message;
+      alertBox.style.display = 'block';
+      if (isError) {
+        alertBox.style.background = 'linear-gradient(135deg, #ff4d4d, #ff1a1a)';
+      } else {
+        alertBox.style.background = 'linear-gradient(135deg, #00d4ff, #00ffff)';
+      }
+      setTimeout(function () {
+        alertBox.style.display = 'none';
+        alertBox.style.background = 'linear-gradient(135deg, #00d4ff, #00ffff)';
+      }, 5000);
+    }
+
+    function submitForm(form) {
+      var submitButton = form.querySelector('button[type="submit"]');
+      var originalButtonText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours...';
+      setTimeout(function () {
+        try {
+          var data = new FormData(form);
+          var row = {};
+          data.forEach(function (v, k) { row[k] = v; });
+          var list = JSON.parse(localStorage.getItem('bacmath_contact_demo') || '[]');
+          row.date = new Date().toISOString();
+          list.push(row);
+          localStorage.setItem('bacmath_contact_demo', JSON.stringify(list));
+        } catch (e) {}
+        showMessage('✅ Merci ! Vos informations ont été enregistrées localement (démo HTML sans serveur).', false);
+        form.reset();
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }, 400);
+      return false;
+    }
+
+    var offreBtn = document.getElementById('offreBtn');
+    function getDistance(x1, y1, x2, y2) {
+      return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    }
+    offreBtn.addEventListener('mousemove', function (e) {
+      var rect = offreBtn.getBoundingClientRect();
+      var centerX = rect.left + rect.width / 2;
+      var centerY = rect.top + rect.height / 2;
+      var distance = getDistance(e.clientX, e.clientY, centerX, centerY);
+      var intensity = Math.min(1, 200 / distance);
+      offreBtn.style.boxShadow =
+        '0 0 ' + (20 + intensity * 30) + 'px #ff00cc,' +
+        '0 0 ' + (40 + intensity * 40) + 'px #3333ff,' +
+        '0 0 ' + (60 + intensity * 50) + 'px #ff33cc inset';
+    });
+    function floatRandom() {
+      var offsetX = (Math.random() - 0.5) * 6;
+      var offsetY = (Math.random() - 0.5) * 4;
+      offreBtn.style.transform = 'translate(' + offsetX + 'px, ' + offsetY + 'px)';
+      requestAnimationFrame(floatRandom);
+    }
+    floatRandom();
+    offreBtn.addEventListener('click', function () {
+      window.location.href = 'offres.html';
+    });
+  </script>
+</body>
+</html>

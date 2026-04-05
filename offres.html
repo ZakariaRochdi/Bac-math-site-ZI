@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Professeur ROCHDI - Cours de Mathématiques BAC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+  <div id="particles-js"></div>
+  <header>
+    <h1><a href="index.html" style="text-decoration:none; color:inherit;">Bac Maths</a></h1>
+    <nav class="navbar-top">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Summary</a>
+      <a href="exercices.html">Exercises</a>
+      <a href="livre.html">Book</a>
+      <a href="examens.html">Exams</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <div class="content" style="max-width:1200px;">
+<style>
+  /* Canvas pour particules mathématiques */
+  #particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Formes géométriques flottantes */
+  .geometric-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .shape {
+    position: absolute;
+    opacity: 0.1;
+    animation: float 20s infinite ease-in-out;
+  }
+
+  .shape:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    border: 3px solid #1976d2;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+    border-radius: 50%;
+  }
+
+  .shape:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    border: 3px solid #00bcd4;
+    top: 60%;
+    right: 10%;
+    animation-delay: 3s;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+
+  .shape:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    border: 3px solid #ffc107;
+    bottom: 20%;
+    left: 70%;
+    animation-delay: 6s;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(50px, -50px) rotate(90deg); }
+    50% { transform: translate(-30px, -100px) rotate(180deg); }
+    75% { transform: translate(-50px, 50px) rotate(270deg); }
+  }
+
+  /* Scope à la page offres pour ne pas impacter les autres pages */
+  .offres-page {
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+    color: #2c3e50;
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding: 20px 0;
+    margin: 0;
+  }
+
+  .offres-page .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .offres-page .hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    perspective: 1000px;
+  }
+
+  .offres-page .hero-title {
+    font-size: 4em;
+    font-weight: 900;
+    background: linear-gradient(45deg, #00f2fe, #4facfe, #00f2fe);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease infinite, pulse 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 30px rgba(79, 172, 254, 0.5);
+    transform-style: preserve-3d;
+    margin: 20px 0;
+  }
+
+  .offres-page .hero-title:hover {
+    transform: scale(1.1) rotateY(10deg);
+    filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.8));
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .offres-page .hero-subtitle {
+    font-size: 1.5em;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 30px auto 0; /* Marge en bas retirée */
+    max-width: 700px;
+    line-height: 1.6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0 20px;
+  }
+
+  .offres-page .hero-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 3px;
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    transition: transform 0.3s ease;
+  }
+
+  .offres-page .hero-subtitle:hover::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .offres-page .hero-subtitle:hover {
+    color: #00f2fe;
+    transform: translateY(-5px);
+  }
+
+  /* Styles pour le slogan interactif avec dégradé bleu */
+  .offres-page .interactive-slogan {
+    font-size: 2.2em;
+    font-weight: 800;
+    background: linear-gradient(90deg, #0066ff, #00ccff, #0066ff);
+    background-size: 200% auto;
+    color: white;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    text-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    animation: gradient 3s linear infinite, float 3s ease-in-out infinite;
+    margin: 40px 0 20px 0;
+    padding: 0 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .offres-page .interactive-slogan::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+  }
+
+  .offres-page .interactive-slogan:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+  }
+  
+  /* Style pour l'émoji fusée */
+  .offres-page .interactive-slogan .rocket-emoji {
+    -webkit-text-fill-color: initial;
+    color: inherit;
+    background: none;
+    margin-left: 10px;
+    display: inline-flex;
+    animation: none;
+    transform: none;
+  }
+
+  .offres-page .interactive-slogan:hover::before {
+    left: 100%;
+  }
+
+  /* Animation du dégradé */
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Animation de flottement */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  /* FIN DES NOUVEAUX STYLES */
+
+
+  .offres-page .badge-section { 
+    text-align: center; 
+    margin: 0 0 50px 0; /* Marge en haut supprimée, celle du slogan suffit */
+  }
+
+  .offres-page .badge {
+    display: inline-block;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50px;
+    font-weight: 700;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+  }
+
+  .offres-page .badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+  }
+
+  @keyframes shine {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+  }
+
+  .offres-page .badge:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 50px rgba(102, 126, 234, 0.8);
+  }
+
+  .offres-page .price {
+    font-size: 2.8em;
+    font-weight: 700;
+    margin: 20px 0;
+    color: #2c3e50;
+    background: linear-gradient(45deg, #00f2fe, #4facfe, #00f2fe);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease infinite, pulse 2s ease-in-out infinite;
+  }
+
+  .offres-page .btn-primary {
+    background: #4facfe;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .offres-page .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    background: #3a9cf7;
+  }
+
+  .offres-page .offres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin: 50px 0;
+  }
+
+  .offres-page .offre-card {
+    background: transparent;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    padding: 35px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(50px) rotateX(10deg);
+    color: #ffffff;
+  }
+
+  .offres-page .offre-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .offres-page .offre-card:hover::before {
+    left: 100%;
+  }
+
+  .offres-page .offre-card.show {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+  
+  .offres-page .offre-card.selected {
+    border: 2px solid #4facfe;
+    background: rgba(79, 172, 254, 0.1);
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(79, 172, 254, 0.3);
+  }
+
+  /* Modal pour afficher les chapitres */
+  .chapters-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .chapters-content {
+    background: linear-gradient(145deg, #f8f9ff, #ffffff);
+    padding: 40px;
+    border-radius: 16px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    border: 1px solid rgba(0, 123, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 0.4s ease-out 0.1s forwards;
+  }
+  
+  @keyframes slideUp {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    font-size: 24px;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+  }
+  
+  .close-modal:hover {
+    background: #007bff;
+    color: white;
+    transform: rotate(90deg);
+  }
+
+  .module-chapters h3 {
+    color: #0056b3;
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+  }
+  
+  .module-chapters h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #007bff, #00b3ff);
+    border-radius: 3px;
+  }
+  
+  .module-chapters h4 {
+    color: #2c3e50;
+    margin: 30px 0 15px;
+    font-size: 1.3em;
+    position: relative;
+    padding-left: 15px;
+    border-left: 4px solid #007bff;
+  }
+
+  .module-chapters ul {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+
+  .module-chapters ul {
+    padding-left: 0;
+  }
+  
+  .module-chapters li {
+    margin: 12px 0;
+    padding: 12px 20px;
+    background: rgba(0, 123, 255, 0.03);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border-left: 3px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .module-chapters li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 123, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+  
+  .module-chapters li:hover {
+    transform: translateX(5px);
+    background: rgba(0, 123, 255, 0.05);
+    border-left-color: #007bff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .module-chapters li:hover::before {
+    transform: translateX(0);
+  }
+
+  .module-chapters li:last-child {
+    border-bottom: none;
+  }
+
+  .offres-page .offre-card:hover {
+    transform: translateY(-5px);
+    border-color: #4facfe;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.2);
+  }
+
+  .offres-page .offre-card h3 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    color: #00f2fe;
+    position: relative;
+    padding-bottom: 15px;
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
+    50% { text-shadow: 0 0 20px rgba(0, 242, 254, 0.8), 0 0 30px rgba(79, 172, 254, 0.6); }
+  }
+
+  .offres-page .offre-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    border-radius: 2px;
+    animation: expand 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes expand {
+    from { width: 40px; }
+    to { width: 80px; }
+  }
+
+  .offres-page .offre-card ul { 
+    list-style: none; 
+    padding-left: 0; 
+  }
+
+  .offres-page .offre-card ul li {
+    padding: 12px 0 12px 40px;
+    position: relative;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.8;
+    margin-bottom: 10px;
+    font-size: 1.05em;
+    transition: all 0.3s ease;
+  }
+
+  .offres-page .offre-card ul li:hover {
+    transform: translateX(10px);
+    color: #00f2fe;
+  }
+
+  .offres-page .offre-card ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f2027;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+    animation: checkmark 0.5s ease-in-out;
+  }
+
+  @keyframes checkmark {
+    0% { transform: translateY(-50%) scale(0) rotate(-180deg); }
+    50% { transform: translateY(-50%) scale(1.2) rotate(10deg); }
+    100% { transform: translateY(-50%) scale(1) rotate(0deg); }
+  }
+
+  .offres-page .offre-card p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.05em;
+  }
+
+  .offres-page .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 50px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 40px rgba(245, 87, 108, 0.5);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+
+  .offres-page .feature-item {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border-left: 3px solid #4facfe;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+  }
+
+  .offres-page .cta-button:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .offres-page .cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 60px rgba(245, 87, 108, 0.7);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .offres-page .cta-button:active {
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  /* Animations d'entrée décalées */
+  .offres-page .offre-card:nth-child(1) { animation-delay: 0.1s; }
+  .offres-page .offre-card:nth-child(2) { animation-delay: 0.2s; }
+  .offres-page .offre-card:nth-child(3) { animation-delay: 0.3s; }
+  .offres-page .offre-card:nth-child(4) { animation-delay: 0.4s; }
+  .offres-page .offre-card:nth-child(5) { animation-delay: 0.5s; }
+  .offres-page .offre-card:nth-child(6) { animation-delay: 0.6s; }
+
+  /* Style pour les éléments de la page */
+  @media (max-width: 768px) {
+    .offres-page .hero-title { font-size: 2.5em; }
+    .offres-page .hero-subtitle { font-size: 1.2em; }
+    /* Ajustement pour le slogan sur mobile */
+    .offres-page .interactive-slogan { font-size: 1.8em; } 
+    .offres-page .offres-grid { 
+      grid-template-columns: 1fr; 
+    }
+    .offres-page .offre-card { 
+      flex: 1 1 100%; 
+      max-width: 100%; 
+      padding: 25px;
+    }
+  }
+</style>
+
+<canvas id="particles-canvas"></canvas>
+
+<div class="geometric-shapes">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<div class="offres-page">
+  <div class="container">
+    <div class="hero-section">
+      <h1 class="hero-title" id="hero-title">Professor ROCHDI 📚</h1>
+      <p class="hero-subtitle" id="hero-subtitle">
+        Math Baccalaureate Offer - Excel in Your Exam with Excellence
+      </p>
+
+      <h2 class="interactive-slogan">What are you waiting for? Let's move forward <span class="rocket-emoji">🚀</span></h2>
+
+    </div> <div class="badge-section">
+      <div class="badge">✨ Complete 2026 Baccalaureate Training</div>
+    </div>
+
+    <div class="offres-grid">
+      <div class="offre-card">
+        <h3>📘 Included Modules</h3>
+        <ul id="modules-list">
+          <li>Limites et continuité</li>
+          <li>Dérivation et étude de fonctions</li>
+          <li>Suites numériques</li>
+          <li>Logarithmes et exponentielles</li>
+          <li>Nombres complexes</li>
+          <li>Géométrie dans l'espace</li>
+          <li>Primitives et calcul intégral</li>
+          <li>Équations différentielles</li>
+          <li>Probabilités</li>
+        </ul>
+      </div>
+
+      <div class="offre-card">
+        <h3>📝 Continuous Assessment</h3>
+        <p>Progressive exercises with solutions for each chapter. Regular follow-up to improve understanding and performance. Perfect for effective preparation for continuous assessment.</p>
+      </div>
+
+      <div class="offre-card">
+        <h3>🎯 Exam Preparation</h3>
+        <p>Access to past Math Baccalaureate papers with detailed step-by-step solutions. Familiarization with the official format and effective strategies for each type of problem.</p>
+      </div>
+
+      <div class="offre-card">
+        <h3>🏆 Offer Quality</h3>
+        <ul>
+          <li>Content developed by experts</li>
+          <li>Clear and structured PDFs</li>
+          <li>Progressive exercises</li>
+          <li>Complete solved past papers</li>
+          <li>Methodology suitable for everyone</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="offres-grid" style="margin-top:0;">
+      <div class="offre-card" style="flex:1 1 90%;">
+        <h3>💡 Benefits</h3>
+        <ul>
+          <li>Unlimited access to lessons and exercises</li>
+          <li>Interactive materials and detailed solutions</li>
+          <li>Optimized study time</li>
+          <li>Ideal for continuous assessment and final exams</li>
+        </ul>
+      </div>
+
+      <div class="offre-card" style="flex:1 1 90%; text-align:center;">
+        <h3>💰 Practical Details</h3>
+        <p style="font-weight:bold; font-size:1.3em; margin:15px 0;">Price: 150 MAD</p>
+        <p style="margin:10px 0;">Format: PDF + online access + interactive solutions</p>
+        <p style="margin:10px 0 25px 0;">Duration: Unlimited access</p>
+        <a href="contact.html" class="cta-button">Register Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Canvas pour particules mathématiques
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const symbols = ['π', '∑', '∫', '√', '∞', '∆', '∂', 'α', 'β', 'θ'];
+  const particles = [];
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 20 + 10;
+      this.speedX = Math.random() * 2 - 1;
+      this.speedY = Math.random() * 2 - 1;
+      this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
+      this.opacity = Math.random() * 0.5 + 0.1;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (this.x > canvas.width) this.x = 0;
+      if (this.x < 0) this.x = canvas.width;
+      if (this.y > canvas.height) this.y = 0;
+      if (this.y < 0) this.y = canvas.height;
+    }
+
+    draw() {
+      ctx.fillStyle = `rgba(0, 242, 254, ${this.opacity})`;
+      ctx.font = `${this.size}px Arial`;
+      ctx.fillText(this.symbol, this.x, this.y);
+    }
+  }
+
+  for (let i = 0; i < 30; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(particle => {
+      particle.update();
+      particle.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Redimensionnement du canvas
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  // Intersection Observer pour l'animation des cartes
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('show');
+        }, index * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.offres-page .offre-card').forEach(card => {
+    observer.observe(card);
+  });
+
+  // Animation du titre au clic
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) {
+    heroTitle.addEventListener('click', function() {
+      this.style.animation = 'none';
+      setTimeout(() => {
+        this.style.animation = '';
+      }, 10);
+    });
+  }
+
+  // Effet de souris sur le sous-titre
+  const subtitle = document.getElementById('hero-subtitle');
+  if (subtitle) {
+    subtitle.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.05) translateY(-5px)';
+    });
+    subtitle.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1) translateY(0)';
+    });
+  }
+
+  // Données des chapitres par module
+  const modulesData = {
+    'Limites et continuité': [
+      'Introduction aux limites',
+      'Calcul de limites',
+      'Continuité et théorèmes',
+      'Asymptotes',
+      'Exercices pratiques'
+    ],
+    'Dérivation et étude de fonctions': [
+      'Dérivabilité en un point',
+      'Fonctions dérivées',
+      'Variations des fonctions',
+      'Extremums',
+      'Étude complète de fonction'
+    ],
+    'Suites numériques': [
+      'Généralités sur les suites',
+      'Suites arithmétiques et géométriques',
+      'Raisonnement par récurrence',
+      'Limites de suites',
+      'Suites récurrentes'
+    ],
+    'Logarithmes et exponentielles': [
+      'Fonction exponentielle',
+      'Fonction logarithme népérien',
+      'Équations et inéquations',
+      'Croissances comparées',
+      'Applications'
+    ],
+    'Nombres complexes': [
+      'Forme algébrique',
+      'Conjugué et module',
+      'Forme trigonométrique',
+      'Forme exponentielle',
+      'Équations dans C'
+    ],
+    'Géométrie dans l\'espace': [
+      'Vecteurs de l\'espace',
+      'Droites et plans',
+      'Produit scalaire',
+      'Sections planes',
+      'Volumes'
+    ],
+    'Primitives et calcul intégral': [
+      'Primitives usuelles',
+      'Intégration par parties',
+      'Calculs d\'aires',
+      'Valeur moyenne',
+      'Applications physiques'
+    ],
+     'Équations différentielles': [
+      'Équations différentielles du 1er ordre',
+      'Équations linéaires du 2nd ordre',
+      'Problèmes de Cauchy',
+      'Applications',
+      'Exercices résolus'
+    ],
+    'Probabilités': [
+      'Dénombrement',
+      'Probabilités conditionnelles',
+      'Variables aléatoires',
+      'Lois de probabilité',
+      'Échantillonnage'
+    ]
+  };
+
+  // Animation et sélection des cartes
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.offre-card');
+    const modal = document.createElement('div');
+    modal.className = 'chapters-modal';
+    modal.innerHTML = `
+      <div class="chapters-content">
+        <span class="close-modal">&times;</span>
+        <div class="module-chapters">
+          <h3>Chapitres</h3>
+          <div id="chapters-list"></div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Gestion du clic sur le bouton de fermeture
+    modal.querySelector('.close-modal').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Fermer la modale en cliquant en dehors
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+    
+    // Animation d'apparition
+    cards.forEach(card => {
+      setTimeout(() => {
+        card.classList.add('show');
+      }, 100);
+    });
+    
+    // Gestion du clic sur les éléments de la liste des modules
+    const moduleItems = document.querySelectorAll('#modules-list li');
+    moduleItems.forEach(item => {
+      item.style.cursor = 'pointer';
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const moduleName = item.textContent.trim();
+        const chapters = modulesData[moduleName] || [];
+        
+        const chaptersList = document.getElementById('chapters-list');
+        chaptersList.innerHTML = `
+          <h4>${moduleName}</h4>
+          <ul>
+            ${chapters.map(chap => `<li>${chap}</li>`).join('')}
+          </ul>
+        `;
+        
+        modal.style.display = 'flex';
+      });
+    });
+    
+    // Gestion de la sélection des cartes
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('#modules-list li')) {
+          cards.forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+        }
+      });
+    });
+  });
+
+  // Gestion des événements de la page
+</script>
+  </div>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>© 2026 <strong class="interactive">Bac Maths</strong>. All rights reserved.</p>
+    <p>
+      Contact :
+      <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a> |
+      <a href="https://instagram.com/zikoorh" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a> |
+      <a href="https://facebook.com/rh.Ziko" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
+    </p>
+  </div>
+</footer>
+
+<a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer" class="whatsapp-chat-button">
+  <i class="fab fa-whatsapp"></i> Need help ? We're here !
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="js/particles-init.js"></script>
+</body>
+</html>

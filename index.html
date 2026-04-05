@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Accueil — Bac Maths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    body.page-home {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      background-size: 100% 100%;
+      animation: none;
+      overflow-x: hidden;
+      color: white;
+    }
+
+    .math-background {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .math-symbol {
+      position: absolute;
+      font-size: 26px;
+      color: rgba(255, 255, 255, 0.7);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.3);
+      animation: floatUpSym 14s linear infinite;
+      user-select: none;
+      font-weight: bold;
+    }
+
+    @keyframes floatUpSym {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-20vh) rotate(360deg); }
+    }
+
+    .hero-welcome {
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .hero-main-title {
+      font-size: 3em;
+      color: rgb(0, 136, 255);
+      text-shadow: 0 0 10px rgba(0, 136, 255, 0.4), 0 0 20px rgba(0, 136, 255, 0.6);
+      cursor: pointer;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .hero-main-title .word {
+      display: inline-block;
+      animation: bounce 2s infinite, glowBlue 3s infinite alternate;
+      animation-delay: calc(0.1s * var(--i));
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
+    }
+
+    @keyframes glowBlue {
+      0% { text-shadow: 0 0 10px rgba(0, 136, 255, 0.3); }
+      100% { text-shadow: 0 0 30px rgba(0, 136, 255, 0.9); }
+    }
+
+    .hero-subtitle-home {
+      font-size: 1.3em;
+      margin-top: 15px;
+      color: rgb(0, 136, 255);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: fadeInHome 2s ease-in-out;
+    }
+
+    @keyframes fadeInHome {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .explore-button-home {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 40px;
+      font-size: 1.1em;
+      color: white;
+      background: linear-gradient(45deg, #0088ff, #00ccff);
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 5px 20px rgba(0, 136, 255, 0.4);
+      animation: glowBlue 3s infinite alternate;
+    }
+
+    .explore-button-home:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 136, 255, 0.8);
+    }
+  </style>
+</head>
+<body class="page-home">
+  <div id="particles-js"></div>
+
+  <header>
+    <h1><a href="index.html" style="text-decoration:none; color:inherit;">Bac Maths</a></h1>
+    <nav class="navbar-top">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Summary</a>
+      <a href="exercices.html">Exercises</a>
+      <a href="livre.html">Book</a>
+      <a href="examens.html">Exams</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="math-background" id="mathBackground"></div>
+  <div class="hero-welcome fade-in">
+    <h1 class="hero-main-title" onclick="animateClick(this)">
+      <span class="word">Welcome</span>
+      <span class="word">my</span>
+      <span class="word">dear</span>
+      <span class="word">students</span>
+      <span class="word">to</span>
+      <span class="word">your</span>
+      <span class="word">platform</span>
+      <span class="emoji">😄</span>
+    </h1>
+
+    <p class="hero-subtitle-home interactive-message"
+       onmouseover="hoverText(this)"
+       onmouseout="unhoverText(this)"
+       onclick="clickText(this)">
+      Review your Math Baccalaureate easily and effectively !
+    </p>
+
+    <a class="explore-button-home" href="resume.html">📜 Start the review</a>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2026 <strong>Bac Maths</strong>. All rights reserved.</p>
+      <p>
+        Contact :
+        <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a> |
+        <a href="https://instagram.com/zikoorh" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a> |
+        <a href="https://facebook.com/rh.Ziko" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
+      </p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer" class="whatsapp-chat-button">
+    <i class="fab fa-whatsapp"></i> Need help ? We're here !
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="js/particles-init.js"></script>
+  <script>
+    function animateClick(element) {
+      element.style.transform = 'scale(1.1)';
+      setTimeout(function () { element.style.transform = 'scale(1)'; }, 200);
+    }
+    function hoverText(el) {
+      el.style.color = '#33ccff';
+      el.style.transform = 'scale(1.05)';
+    }
+    function unhoverText(el) {
+      el.style.color = 'rgb(0, 136, 255)';
+      el.style.transform = 'scale(1)';
+    }
+    function clickText(el) {
+      el.style.transform = 'scale(1.2)';
+      el.style.color = '#0099ff';
+      setTimeout(function () {
+        el.style.transform = 'scale(1)';
+        el.style.color = 'rgb(0, 136, 255)';
+      }, 300);
+    }
+    document.querySelectorAll('.hero-main-title .word').forEach(function (word, i) {
+      word.style.setProperty('--i', i);
+    });
+    var symbols = ['∫', '√', 'Σ', 'π', '∞', 'Δ', '≈', 'θ', '∑', '∂', '∇', '≠', '≤', '≥'];
+    var bg = document.getElementById('mathBackground');
+    for (var j = 0; j < 30; j++) {
+      var span = document.createElement('span');
+      span.className = 'math-symbol';
+      span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.animationDuration = 10 + Math.random() * 8 + 's';
+      span.style.fontSize = 18 + Math.random() * 30 + 'px';
+      bg.appendChild(span);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Résumé — Bac Maths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .cours-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .cours-item { margin-bottom: 15px; width: 100%; }
+    .cours-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-align: left;
+      background-color: #007bff;
+      color: white;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .cours-button > a.cours-pdf {
+      flex: 1;
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    .cours-button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .cours-nom { flex: 1; }
+    .video-link {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .video-link:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    .interactive-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #007bff;
+      display: inline-block;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .interactive-title span {
+      border-bottom: 3px solid #007bff;
+      padding-bottom: 4px;
+    }
+    .interactive-title:hover {
+      color: #0056b3;
+      transform: scale(1.08);
+    }
+    .interactive-message {
+      color: #0056b3;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <header>
+    <h1><a href="index.html" style="text-decoration:none; color:inherit;">Bac Maths</a></h1>
+    <nav class="navbar-top">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Summary</a>
+      <a href="exercices.html">Exercises</a>
+      <a href="livre.html">Book</a>
+      <a href="examens.html">Exams</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <div class="resume-container fade-in">
+      <h2 class="interactive-title">📜 <span>Course summary</span></h2>
+      <p class="interactive-message" style="color: rgb(0, 0, 255); margin-bottom: 30px;">
+        ✨ Select a course below to view its detailed summary in PDF.
+      </p>
+      <div class="cours-grid" id="resume-grid"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2026 <strong>Bac Maths</strong>. All rights reserved.</p>
+      <p>
+        Contact :
+        <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a> |
+        <a href="https://instagram.com/zikoorh" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a> |
+        <a href="https://facebook.com/rh.Ziko" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
+      </p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer" class="whatsapp-chat-button">
+    <i class="fab fa-whatsapp"></i> Need help ? We're here !
+  </a>
+
+  <script src="js/cours-data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="js/particles-init.js"></script>
+  <script>
+    (function () {
+      var grid = document.getElementById('resume-grid');
+      window.BACMATH_COURS.forEach(function (c) {
+        var div = document.createElement('div');
+        div.className = 'cours-item';
+        div.innerHTML =
+          '<div class="cours-button">' +
+          '<a class="cours-pdf" href="view-pdf.html?folder=resumes&file=' +
+          encodeURIComponent(c.resume_pdf) +
+          '"><span class="cours-nom">📘 ' +
+          c.nom +
+          '</span></a>' +
+          '<span class="video-link" role="button" tabindex="0">▶️ View the vido</span>' +
+          '</div>';
+        div.querySelector('.video-link').addEventListener('click', function (e) {
+          e.preventDefault();
+          alert('Fonctionnalité de vidéo à venir pour ' + c.nom);
+        });
+        grid.appendChild(div);
+      });
+    })();
+  </script>
+</body>
+</html>

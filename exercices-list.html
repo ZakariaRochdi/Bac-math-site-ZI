@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Exercices — Bac Maths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .interactive-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #007bff;
+      display: inline-block;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .interactive-title span {
+      border-bottom: 3px solid #007bff;
+      padding-bottom: 4px;
+    }
+    .interactive-title:hover {
+      color: #0056b3;
+      transform: scale(1.08);
+    }
+    .interactive-message {
+      color: #0056b3;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      font-style: italic;
+    }
+    .cours-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <header>
+    <h1><a href="index.html" style="text-decoration:none; color:inherit;">Bac Maths</a></h1>
+    <nav class="navbar-top">
+      <a href="index.html">Home</a>
+      <a href="resume.html">Summary</a>
+      <a href="exercices.html">Exercises</a>
+      <a href="livre.html">Book</a>
+      <a href="examens.html">Exams</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <div class="fade-in">
+      <h2 class="interactive-title" id="exo-title">📑 <span>Exercises</span></h2>
+      <p class="interactive-message" style="color: rgb(0, 0, 255); margin-top: 10px;">
+        ✨ Select an exercise to view and download it :
+      </p>
+      <div class="cours-grid" id="exo-series"></div>
+      <a class="button" href="exercices.html">⬅️ Back</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2026 <strong>Bac Maths</strong>. All rights reserved.</p>
+      <p>
+        Contact :
+        <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a> |
+        <a href="https://instagram.com/zikoorh" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a> |
+        <a href="https://facebook.com/rh.Ziko" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
+      </p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/212601087413" target="_blank" rel="noopener noreferrer" class="whatsapp-chat-button">
+    <i class="fab fa-whatsapp"></i> Need help ? We're here !
+  </a>
+
+  <script src="js/cours-data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="js/particles-init.js"></script>
+  <script>
+    (function () {
+      var id = parseInt(new URLSearchParams(location.search).get('id'), 10);
+      var cours = window.BACMATH_COURS.find(function (c) { return c.id === id; });
+      var title = document.getElementById('exo-title');
+      var grid = document.getElementById('exo-series');
+      if (!cours) {
+        title.innerHTML = '📑 <span>Course not found</span>';
+        grid.innerHTML = '<p class="interactive-message"><a href="exercices.html">Back to exercises</a></p>';
+        return;
+      }
+      title.innerHTML = '📑 <span>Exercises for : ' + cours.nom.replace(/</g, '') + '</span>';
+      var count = window.BACMATH_SERIES_COUNT || 4;
+      for (var n = 1; n <= count; n++) {
+        var a = document.createElement('a');
+        a.className = 'button';
+        a.href = 'exercice-view.html?coursId=' + id + '&n=' + n;
+        a.textContent = '📄 Série ' + n;
+        grid.appendChild(a);
+      }
+    })();
+  </script>
+</body>
+</html>
