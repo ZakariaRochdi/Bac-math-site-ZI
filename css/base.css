@@ -1,0 +1,314 @@
+/* Bac Maths — styles partagés (équivalent Application/templates/base.html) */
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(270deg, #2196F3, #1976D2, #0D47A1, #42A5F5);
+  background-size: 800% 800%;
+  animation: gradientBG 20s ease infinite;
+  color: #333;
+  overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+header {
+  background: rgba(25, 118, 210, 0.85);
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  transition: background 0.3s;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.2s, text-shadow 0.3s;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+header h1:hover {
+  color: #BBDEFB;
+  transform: scale(1.08);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-top a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: background 0.3s, transform 0.2s, color 0.3s, box-shadow 0.3s;
+}
+
+.navbar-top a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #E3F2FD;
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  padding: 100px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 900px;
+  margin: 50px auto;
+  text-align: center;
+  color: white;
+  background: rgba(33, 150, 243, 0.85);
+  backdrop-filter: blur(5px);
+  animation: floatUpHero 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatUpHero {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-15px); }
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, color 0.3s;
+  cursor: default;
+}
+
+.hero-title:hover {
+  color: #BBDEFB;
+  transform: scale(1.05);
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+  color: #e0f7fa;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button {
+  display: inline-block;
+  margin: 10px 15px;
+  padding: 14px 30px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.button:hover {
+  background: #1976D2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.button:active {
+  background: #1565C0;
+  transform: scale(0.98);
+}
+
+.cours-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  background: #2196F3;
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.cours-button:hover {
+  background: #1976D2;
+  transform: translateY(-2px);
+}
+
+.cours-button:active {
+  background: #1565C0;
+  transform: scale(0.98);
+}
+
+.explore-button {
+  background: #fff;
+  color: #1976D2;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 30px;
+  font-size: 18px;
+  font-weight: 500;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.explore-button:hover {
+  background: #1976D2;
+  color: #fff;
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.site-footer {
+  background: linear-gradient(90deg, #1976D2, #2196F3);
+  padding: 15px 20px;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 15px;
+  color: white;
+}
+
+.site-footer a {
+  color: #BBDEFB;
+  text-decoration: none;
+  margin: 0 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.site-footer a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #E3F2FD;
+  transform: translateY(-3px);
+}
+
+.whatsapp-chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  z-index: 9999;
+}
+
+.whatsapp-chat-button:hover {
+  background-color: #1ebe5d;
+  transform: translateY(-4px) scale(1.05);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.interactive-message:hover {
+  color: #ff5252;
+  transform: scale(1.05);
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-top {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .navbar-top a {
+    margin-left: 0;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .hero {
+    padding: 60px 15px;
+    max-width: 90%;
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .button,
+  .cours-button,
+  .explore-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .whatsapp-chat-button {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .content {
+    margin: 30px 10px;
+    padding: 15px;
+  }
+
+  .site-footer {
+    font-size: 13px;
+    padding: 10px 15px;
+  }
+}
