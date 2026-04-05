@@ -95,7 +95,10 @@
         document.getElementById('ev-desc').textContent = 'Lien incomplet.';
         return;
       }
-      var url = 'exercices/' + encodeURIComponent(coursId) + '/' + encodeURIComponent('Série ' + n) + '.pdf';
+
+      // ✅ Correction : utiliser cours.nom au lieu de coursId
+      var url = 'exercices/' + encodeURIComponent(cours.nom) + '/' + encodeURIComponent('Série ' + n) + '.pdf';
+
       var labelSerie = 'Série ' + n;
       document.getElementById('ev-title').innerHTML =
         '📄 <span>' + cours.nom + ' — ' + labelSerie + '</span>';
