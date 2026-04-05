@@ -57,13 +57,13 @@
         <embed id="pdf-embed" type="application/pdf" style="display: none; width: 100%; height: 90vh;" />
       </div>
       <p id="pdf-fallback-hint" class="interactive-message" style="display: none; max-width: 640px; margin: 16px auto;">
-        Avec <code>file://</code>, les PDF dans la page sont souvent bloqués. Utilisez <strong>Live Server</strong> ou
-        <a class="button" id="pdf-open-tab" href="#" target="_blank" rel="noopener" style="display: inline-block; margin-top: 8px;">ouvrir le PDF dans un nouvel onglet</a>
+        Le PDF ne s'affiche pas ? 
+        <a class="button" id="pdf-open-tab" href="#" target="_blank" rel="noopener" style="display: inline-block; margin-top: 8px;">Ouvrir dans un nouvel onglet</a>
       </p>
       <p id="pdf-missing" class="interactive-message" style="display:none;">Aucun fichier indiqué. Utilisez un lien depuis Summary ou Exercises.</p>
       <div id="pdf-actions" style="margin-top: 30px;">
         <a class="button" href="javascript:history.back()">⬅️ Back</a>
-        <a class="button" id="pdf-download" href="#">⬇️ Save PDF</a>
+        <a class="button" id="pdf-download" href="https://drive.google.com/uc?export=download&id=1NpxtlRu3_BnnSIfgbWCWfASeqkjmN56f" target="_blank">⬇️ Save PDF</a>
         <button type="button" class="button" onclick="openFullScreen()">🖥️ Full screen</button>
       </div>
     </div>
@@ -88,36 +88,43 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="js/particles-init.js"></script>
   <script>
+    // Google Drive PDF ID
+    var DRIVE_FILE_ID = '1NpxtlRu3_BnnSIfgbWCWfASeqkjmN56f';
+    var DRIVE_PREVIEW = 'https://drive.google.com/file/d/' + DRIVE_FILE_ID + '/preview';
+    var DRIVE_DOWNLOAD = 'https://drive.google.com/uc?export=download&id=' + DRIVE_FILE_ID;
+    var DRIVE_VIEW = 'https://drive.google.com/file/d/' + DRIVE_FILE_ID + '/view';
+
     (function () {
       var p = new URLSearchParams(location.search);
-      var folder = p.get('folder') || 'resumes';
       var file = p.get('file');
       var frame = document.getElementById('pdf-frame');
-      var embed = document.getElementById('pdf-embed');
       var dl = document.getElementById('pdf-download');
       var missing = document.getElementById('pdf-missing');
       var actions = document.getElementById('pdf-actions');
       var container = document.getElementById('pdf-container');
       var hint = document.getElementById('pdf-fallback-hint');
       var openTab = document.getElementById('pdf-open-tab');
-      if (!file) {
-        container.style.display = 'none';
-        actions.style.display = 'none';
-        missing.style.display = 'block';
-        return;
-      }
-      var base = 'static/pdf/' + folder + '/' + file.split('/').map(encodeURIComponent).join('/');
-      frame.src = base;
-      dl.href = base;
-      dl.setAttribute('download', '');
-      openTab.href = base;
-      if (location.protocol === 'file:') {
-        embed.src = base;
-        embed.style.display = 'block';
-        frame.style.display = 'none';
+
+      // Si un fichier local est spécifié dans l'URL, on l'utilise
+      // Sinon on utilise le PDF Google Drive par défaut
+      var folder = p.get('folder') || 'resumes';
+
+      if (file) {
+        // Fichiers locaux (petits PDFs dans static/pdf/)
+        var base = 'static/pdf/' + folder + '/' + file.split('/').map(encodeURIComponent).join('/');
+        frame.src = base;
+        dl.href = base;
+        dl.setAttribute('download', '');
+        openTab.href = base;
+      } else {
+        // Pas de fichier spécifié → afficher le grand PDF depuis Google Drive
+        frame.src = DRIVE_PREVIEW;
+        dl.href = DRIVE_DOWNLOAD;
+        openTab.href = DRIVE_VIEW;
         hint.style.display = 'block';
       }
     })();
+
     function openFullScreen() {
       var frame = document.getElementById('pdf-frame');
       var embed = document.getElementById('pdf-embed');
