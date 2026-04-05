@@ -93,7 +93,7 @@
       var type = p.get('type') || 'normal';
       if (type !== 'normal' && type !== 'rattrapage') type = 'normal';
       var label = type === 'rattrapage' ? 'Retake' : 'Normal';
-      var url = 'static/pdf/examens/' + type + '/' + year + '.pdf';
+      var url = 'examens/' + type + '/' + year + '.pdf';
       document.getElementById('ev2-title').innerHTML =
         '📝 <span>Exam Preview — ' + label + '</span>';
       document.getElementById('ev2-desc').innerHTML =
